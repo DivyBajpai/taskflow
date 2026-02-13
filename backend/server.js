@@ -47,7 +47,8 @@ const io = new Server(httpServer, {
     origin: [
       'http://localhost:3000',
       'http://localhost:5173',
-      'https://taskflow-nine-phi.vercel.app'
+      'https://taskflow-nine-phi.vercel.app',
+      'https://taskflow-wheat-nine.vercel.app'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
