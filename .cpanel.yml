@@ -10,7 +10,7 @@ deployment:
     #   /home/username/public_html/taskflow
     #   /home/username/taskflow
     #   /home/username/domains/yourdomain.com/public_html
-    - export DEPLOYPATH=/home/your-username/public_html/taskflow
+    - export DEPLOYPATH=/home/ozgtvnee/public_html/taskflow
     
     # Build frontend
     - echo "Building frontend..."
