@@ -1,0 +1,35 @@
+---
+# cPanel Deployment Configuration
+# This file enables automated Git deployments in cPanel
+# IMPORTANT: Update DEPLOYPATH with your actual cPanel path!
+
+deployment:
+  tasks:
+    # Set deployment path - CHANGE THIS to your actual path!
+    # Examples:
+    #   /home/username/public_html/taskflow
+    #   /home/username/taskflow
+    #   /home/username/domains/yourdomain.com/public_html
+    - export DEPLOYPATH=/home/your-username/public_html/taskflow
+    
+    # Build frontend
+    - echo "Building frontend..."
+    - cd $DEPLOYPATH/frontend
+    - npm install --production
+    - npm run build
+    
+    # Copy built frontend to backend public folder
+    - echo "Copying frontend build to backend..."
+    - mkdir -p $DEPLOYPATH/backend/public
+    - cp -r $DEPLOYPATH/frontend/dist/* $DEPLOYPATH/backend/public/
+    
+    # Install backend dependencies
+    - echo "Installing backend dependencies..."
+    - cd $DEPLOYPATH/backend
+    - npm install --production
+    
+    # Restart Node.js application
+    - echo "Restarting Node.js application..."
+    - /usr/bin/cloudlinux-selector restart-webapp --json --interpreter nodejs --app-root $DEPLOYPATH/backend
+    
+    - echo "Deployment complete!"
