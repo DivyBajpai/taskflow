@@ -5,6 +5,7 @@ import { useSidebar } from '../context/SidebarContext';
 import Sidebar from '../components/Sidebar';
 import api from '../api/axios';
 import useRealtimeSync from '../hooks/useRealtimeSync';
+import { useChartConfig } from '../hooks/useResponsive';
 import { Filter, Calendar, AlertTriangle, TrendingUp, BarChart3, Target, User, Users, Clock, Download, FileSpreadsheet, FileText, X, ChevronDown, Menu } from 'lucide-react';
 import { PieChart as RechartsPieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, LineChart, Line, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend } from 'recharts';
 import { generateExcelReport } from '../utils/reportGenerator';
@@ -14,6 +15,7 @@ const Analytics = () => {
   const { user } = useAuth();
   const { theme } = useTheme();
   const { toggleMobileSidebar } = useSidebar();
+  const chartConfig = useChartConfig();
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -682,16 +684,16 @@ const Analytics = () => {
               {/* Status Distribution */}
               <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6`}>
                 <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>Task Status Distribution</h3>
-                <div style={{ width: '100%', minWidth: '200px' }}>
-                  <ResponsiveContainer width="100%" aspect={1.8} minWidth={200}>
+                <div style={{ width: '100%', minWidth: 0 }}>
+                  <ResponsiveContainer width="100%" height={chartConfig.chartHeight} minWidth={0}>
                     <RechartsPieChart>
                       <Pie
                         data={analyticsData.statusDistribution}
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => window.innerWidth < 640 ? `${(percent * 100).toFixed(0)}%` : `${name} ${(percent * 100).toFixed(0)}%`}
-                        outerRadius="55%"
+                        label={({ name, percent }) => chartConfig.isMobile ? `${(percent * 100).toFixed(0)}%` : `${name} ${(percent * 100).toFixed(0)}%`}
+                        outerRadius={chartConfig.pieOuterRadius}
                         fill="#8884d8"
                         dataKey="value"
                       >
@@ -709,11 +711,11 @@ const Analytics = () => {
               <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6`}>
                 <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>Task Priority Distribution</h3>
                 <div style={{ width: '100%', minWidth: 0 }}>
-                  <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 240 : 320} minWidth={0}>
-                    <BarChart data={analyticsData.priorityDistribution} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
+                  <ResponsiveContainer width="100%" height={chartConfig.chartHeight} minWidth={0}>
+                    <BarChart data={analyticsData.priorityDistribution} margin={chartConfig.margin}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                    <XAxis dataKey="name" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 10 }} />
-                    <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 10 }} />
+                    <XAxis dataKey="name" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
+                    <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
                     <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
                     <Bar dataKey="value" fill="#136dec" />
                   </BarChart>
@@ -731,11 +733,11 @@ const Analytics = () => {
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6`}>
                   <h3 className="text-xs sm:text-sm font-bold text-red-500 uppercase tracking-wider mb-3 sm:mb-4">Overdue Tasks by Priority</h3>
                   <div style={{ width: '100%', minWidth: 0 }}>
-                    <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 240 : 320} minWidth={0}>
-                      <BarChart data={analyticsData.overdueByPriority} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
+                    <ResponsiveContainer width="100%" height={chartConfig.chartHeight} minWidth={0}>
+                      <BarChart data={analyticsData.overdueByPriority} margin={chartConfig.margin}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                      <XAxis dataKey="name" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 10 }} />
-                      <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 10 }} />
+                      <XAxis dataKey="name" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
+                      <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
                       <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
                       <Bar dataKey="value" fill="#ef4444" />
                     </BarChart>
@@ -747,11 +749,11 @@ const Analytics = () => {
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6`}>
                   <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>Completion Trend (30 Days)</h3>
                   <div style={{ width: '100%', minWidth: 0 }}>
-                    <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 240 : 320} minWidth={0}>
-                      <AreaChart data={analyticsData.completionTrend} margin={{ top: 5, right: 5, left: -10, bottom: window.innerWidth < 768 ? 40 : 50 }}>
+                    <ResponsiveContainer width="100%" height={chartConfig.chartHeight} minWidth={0}>
+                      <AreaChart data={analyticsData.completionTrend} margin={{ ...chartConfig.margin, bottom: chartConfig.xAxisHeight - 10 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                        <XAxis dataKey="date" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 7 : 8 }} angle={-45} textAnchor="end" height={window.innerWidth < 768 ? 50 : 60} />
-                        <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 8 : 9 }} />
+                        <XAxis dataKey="date" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize - 1 }} angle={chartConfig.xAxisAngle} textAnchor="end" height={chartConfig.xAxisHeight} />
+                        <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
                       <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
                       <Area type="monotone" dataKey="created" stackId="1" stroke="#136dec" fill="#136dec" />
                       <Area type="monotone" dataKey="completed" stackId="2" stroke="#22c55e" fill="#22c55e" />
@@ -765,11 +767,11 @@ const Analytics = () => {
               <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6 mb-4 sm:mb-6`}>
                 <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>User Performance</h3>
                 <div style={{ width: '100%', minWidth: 0 }}>
-                  <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 260 : 320} minWidth={0}>
-                  <BarChart data={analyticsData.assigneePerformance} margin={{ top: 5, right: 5, left: -10, bottom: window.innerWidth < 768 ? 60 : 70 }}>
+                  <ResponsiveContainer width="100%" height={chartConfig.chartHeight + 20} minWidth={0}>
+                  <BarChart data={analyticsData.assigneePerformance} margin={{ ...chartConfig.margin, bottom: chartConfig.xAxisHeight + 10 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                    <XAxis dataKey="name" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 7 : 8 }} angle={-45} textAnchor="end" height={window.innerWidth < 768 ? 65 : 75} />
-                    <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 10 }} />
+                    <XAxis dataKey="name" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize - 1 }} angle={chartConfig.xAxisAngle} textAnchor="end" height={chartConfig.xAxisHeight + 15} />
+                    <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
                     <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
                     <Bar dataKey="total" fill="#136dec" name="Total Tasks" />
                     <Bar dataKey="completed" fill="#22c55e" name="Completed" />
@@ -784,11 +786,11 @@ const Analytics = () => {
                 <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>Tasks by Team</h3>
                 {analyticsData.teamDistribution && analyticsData.teamDistribution.length > 0 ? (
                   <div style={{ width: '100%', minWidth: 0 }}>
-                    <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 260 : 320} minWidth={0}>
-                    <BarChart data={analyticsData.teamDistribution} margin={{ top: 5, right: 5, left: -10, bottom: window.innerWidth < 768 ? 70 : 80 }}>
+                    <ResponsiveContainer width="100%" height={chartConfig.chartHeight + 20} minWidth={0}>
+                    <BarChart data={analyticsData.teamDistribution} margin={{ ...chartConfig.margin, bottom: chartConfig.xAxisHeight + 20 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                      <XAxis dataKey="name" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 7 : 8 }} angle={-45} textAnchor="end" height={window.innerWidth < 768 ? 75 : 85} interval={0} />
-                      <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 10 }} />
+                      <XAxis dataKey="name" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize - 1 }} angle={chartConfig.xAxisAngle} textAnchor="end" height={chartConfig.xAxisHeight + 25} interval={0} />
+                      <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
                       <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
                       <Bar dataKey="value" fill="#22c55e" name="Tasks">
                         {analyticsData.teamDistribution.map((entry, index) => (
@@ -810,11 +812,11 @@ const Analytics = () => {
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6`}>
                   <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>Weekly Progress (Last 8 Weeks)</h3>
                   <div style={{ width: '100%', minWidth: 0 }}>
-                    <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 240 : 320} minWidth={0}>
-                    <LineChart data={analyticsData.weeklyProgress} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
+                    <ResponsiveContainer width="100%" height={chartConfig.chartHeight} minWidth={0}>
+                    <LineChart data={analyticsData.weeklyProgress} margin={chartConfig.margin}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                      <XAxis dataKey="week" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 8 : 9 }} />
-                      <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 10 }} />
+                      <XAxis dataKey="week" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
+                      <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
                       <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
                       <Legend wrapperStyle={{ fontSize: '11px' }} />
                       <Line type="monotone" dataKey="completed" stroke="#22c55e" strokeWidth={2} name="Completed" />
@@ -829,11 +831,11 @@ const Analytics = () => {
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6`}>
                   <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>Task Creation by Hour</h3>
                   <div style={{ width: '100%', minWidth: 0 }}>
-                    <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 240 : 320} minWidth={0}>
-                    <BarChart data={analyticsData.hourlyDistribution} margin={{ top: 5, right: 5, left: -10, bottom: window.innerWidth < 768 ? 45 : 55 }}>
+                    <ResponsiveContainer width="100%" height={chartConfig.chartHeight} minWidth={0}>
+                    <BarChart data={analyticsData.hourlyDistribution} margin={{ ...chartConfig.margin, bottom: chartConfig.xAxisHeight - 5 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                      <XAxis dataKey="hour" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 7 : 8 }} angle={-45} textAnchor="end" height={window.innerWidth < 768 ? 50 : 60} />
-                      <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 10 }} />
+                      <XAxis dataKey="hour" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize - 1 }} angle={chartConfig.xAxisAngle} textAnchor="end" height={chartConfig.xAxisHeight - 5} />
+                      <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
                       <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
                       <Bar dataKey="count" fill="#f59e0b" name="Tasks Created" />
                     </BarChart>
@@ -847,11 +849,11 @@ const Analytics = () => {
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6`}>
                   <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>Open Task Age Distribution</h3>
                   <div style={{ width: '100%', minWidth: 0 }}>
-                    <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 240 : 320} minWidth={0}>
-                    <BarChart data={analyticsData.taskAgeDistribution} layout="vertical" margin={{ top: 5, right: 10, left: window.innerWidth < 768 ? 45 : 55, bottom: 5 }}>
+                    <ResponsiveContainer width="100%" height={chartConfig.chartHeight} minWidth={0}>
+                    <BarChart data={analyticsData.taskAgeDistribution} layout="vertical" margin={{ top: 5, right: 10, left: chartConfig.margin.left === -10 ? 45 : 55, bottom: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                      <XAxis type="number" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 8 : 9 }} />
-                      <YAxis dataKey="range" type="category" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 7 : 8 }} width={window.innerWidth < 768 ? 50 : 60} />
+                      <XAxis type="number" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
+                      <YAxis dataKey="range" type="category" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize - 1 }} width={chartConfig.margin.left === -10 ? 50 : 60} />
                       <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
                       <Bar dataKey="count" fill="#8b5cf6" name="Tasks" />
                     </BarChart>
@@ -862,13 +864,13 @@ const Analytics = () => {
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded-lg border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-3 sm:p-6`}>
                   <h3 className={`text-xs sm:text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-3 sm:mb-4`}>Priority Trend (12 Weeks)</h3>
                   <div style={{ width: '100%', minWidth: 0 }}>
-                    <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 240 : 320} minWidth={0}>
-                    <AreaChart data={analyticsData.priorityTrend} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
+                    <ResponsiveContainer width="100%" height={chartConfig.chartHeight} minWidth={0}>
+                    <AreaChart data={analyticsData.priorityTrend} margin={chartConfig.margin}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                      <XAxis dataKey="week" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 7 : 8 }} />
-                      <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 8 : 9 }} />
+                      <XAxis dataKey="week" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize - 1 }} />
+                      <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} />
                       <Tooltip contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.5rem' }} />
-                      <Legend wrapperStyle={{ fontSize: window.innerWidth < 768 ? '8px' : '9px' }} />
+                      <Legend wrapperStyle={{ fontSize: chartConfig.legendFontSize }} />
                       <Area type="monotone" dataKey="urgent" stackId="1" stroke="#ef4444" fill="#ef4444" name="Urgent" />
                       <Area type="monotone" dataKey="high" stackId="1" stroke="#f97316" fill="#f97316" name="High" />
                       <Area type="monotone" dataKey="medium" stackId="1" stroke="#f59e0b" fill="#f59e0b" name="Medium" />
@@ -882,11 +884,11 @@ const Analytics = () => {
               {/* Team Completion Rate */}
               <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-6 mb-6`}>
                 <h3 className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-wider mb-4`}>Team Completion Rate</h3>
-                <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 300 : 350} minWidth={0}>
-                  <BarChart data={analyticsData.completionRateByTeam} margin={{ top: 5, right: 10, left: 0, bottom: window.innerWidth < 768 ? 80 : 100 }}>
+                <ResponsiveContainer width="100%" height={chartConfig.chartHeight + 60} minWidth={0}>
+                  <BarChart data={analyticsData.completionRateByTeam} margin={{ top: 5, right: 10, left: 0, bottom: chartConfig.xAxisHeight + 40 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#282f39" />
-                    <XAxis dataKey="team" stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 8 : 10 }} angle={-45} textAnchor="end" height={window.innerWidth < 768 ? 90 : 105} />
-                    <YAxis stroke="#9da8b9" tick={{ fontSize: window.innerWidth < 768 ? 9 : 11 }} label={{ value: 'Completion Rate %', angle: -90, position: 'insideLeft', style: { fontSize: window.innerWidth < 768 ? 9 : 11 } }} />
+                    <XAxis dataKey="team" stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} angle={chartConfig.xAxisAngle} textAnchor="end" height={chartConfig.xAxisHeight + 45} />
+                    <YAxis stroke="#9da8b9" tick={{ fontSize: chartConfig.axisFontSize }} label={{ value: 'Completion Rate %', angle: -90, position: 'insideLeft', style: { fontSize: chartConfig.axisFontSize } }} />
                     <Tooltip 
                       contentStyle={{ backgroundColor: '#1c2027', border: '1px solid #282f39', borderRadius: '0.125rem' }}
                       formatter={(value, name, props) => {

@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useSidebar } from '../context/SidebarContext';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useRealtimeSync from '../hooks/useRealtimeSync';
+import { useChartConfig } from '../hooks/useResponsive';
 import api from '../api/axios';
 import Avatar from '../components/Avatar';
 import Sidebar from '../components/Sidebar';
@@ -23,6 +24,7 @@ const Dashboard = () => {
   const { toggleMobileSidebar } = useSidebar();
   const navigate = useNavigate();
   const location = useLocation();
+  const chartConfig = useChartConfig();
   
   // All existing state management (PRESERVED)
   const [stats, setStats] = useState({
@@ -661,7 +663,7 @@ const Dashboard = () => {
                             if (percent < 0.05) return null;
                             return `${name.split(' ')[0]} ${(percent * 100).toFixed(0)}%`;
                           }}
-                          outerRadius={window.innerWidth < 768 ? "65%" : "70%"}
+                          outerRadius={chartConfig.pieOuterRadius}
                           fill="#8884d8"
                           dataKey="value"
                         >
@@ -693,17 +695,17 @@ const Dashboard = () => {
                   <h4 className={`text-sm sm:text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Priority Breakdown</h4>
                   <div className="h-[240px] sm:h-[280px] md:h-[300px] w-full" style={{ minHeight: '240px', minWidth: '100%' }}>
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-                      <BarChart data={analyticsData.priorityDistribution} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
+                      <BarChart data={analyticsData.priorityDistribution} margin={chartConfig.margin}>
                         <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? '#282f39' : '#e5e7eb'} />
                         <XAxis 
                           dataKey="name" 
                           stroke={theme === 'dark' ? '#9da8b9' : '#6b7280'} 
-                          tick={{ fontSize: window.innerWidth < 768 ? 10 : 12 }}
+                          tick={{ fontSize: chartConfig.axisFontSize }}
                           tickLine={{ stroke: theme === 'dark' ? '#9da8b9' : '#6b7280' }}
                         />
                         <YAxis 
                           stroke={theme === 'dark' ? '#9da8b9' : '#6b7280'} 
-                          tick={{ fontSize: window.innerWidth < 768 ? 10 : 12 }}
+                          tick={{ fontSize: chartConfig.axisFontSize }}
                           tickLine={{ stroke: theme === 'dark' ? '#9da8b9' : '#6b7280' }}
                         />
                         <Tooltip 
@@ -725,21 +727,21 @@ const Dashboard = () => {
                   <h4 className={`text-sm sm:text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Team Distribution</h4>
                   <div className="h-[240px] sm:h-[280px] md:h-[300px] w-full" style={{ minHeight: '240px', minWidth: '100%' }}>
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-                      <BarChart data={analyticsData.teamDistribution.slice(0, 5)} margin={{ top: 5, right: 5, left: -10, bottom: window.innerWidth < 768 ? 50 : 60 }}>
+                      <BarChart data={analyticsData.teamDistribution.slice(0, 5)} margin={{ ...chartConfig.margin, bottom: chartConfig.xAxisHeight - 20 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? '#282f39' : '#e5e7eb'} />
                         <XAxis 
                           dataKey="name" 
                           stroke={theme === 'dark' ? '#9da8b9' : '#6b7280'} 
-                          tick={{ fontSize: window.innerWidth < 768 ? 9 : 11 }} 
-                          angle={-30} 
+                          tick={{ fontSize: chartConfig.axisFontSize }} 
+                          angle={chartConfig.xAxisAngle} 
                           textAnchor="end" 
-                          height={window.innerWidth < 768 ? 60 : 80}
+                          height={chartConfig.xAxisHeight}
                           interval={0}
                           tickLine={{ stroke: theme === 'dark' ? '#9da8b9' : '#6b7280' }}
                         />
                         <YAxis 
                           stroke={theme === 'dark' ? '#9da8b9' : '#6b7280'} 
-                          tick={{ fontSize: window.innerWidth < 768 ? 10 : 12 }}
+                          tick={{ fontSize: chartConfig.axisFontSize }}
                           tickLine={{ stroke: theme === 'dark' ? '#9da8b9' : '#6b7280' }}
                         />
                         <Tooltip 
