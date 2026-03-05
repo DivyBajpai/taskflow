@@ -109,7 +109,7 @@ class BrevoEmailService {
   async send({ to, subject, htmlContent, params = {}, from, useLayout = false }) {
     if (!from) {
       from = {
-        email: process.env.EMAIL_FROM || 'updates.codecatalyst@gmail.com',
+        email: process.env.EMAIL_FROM || 'noreply@origincreativeagency.com',
         name: process.env.EMAIL_FROM_NAME || 'TaskFlow'
       };
     }

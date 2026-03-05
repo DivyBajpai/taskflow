@@ -31,7 +31,7 @@ const getSmtpTransporter = () => {
 
 // Get default sender info from environment
 const getDefaultSender = () => ({
-  email: process.env.EMAIL_FROM || 'updates.codecatalyst@gmail.com',
+  email: process.env.EMAIL_FROM || 'noreply@origincreativeagency.com',
   name: process.env.EMAIL_FROM_NAME || 'TaskFlow'
 });
 

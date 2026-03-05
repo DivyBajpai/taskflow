@@ -258,7 +258,7 @@ router.post('/send', authenticate, requireCoreWorkspace, checkRole(['admin', 'hr
       params: {}, // No additional params needed since we already interpolated
       from: template ? {
         name: template.senderName || process.env.EMAIL_FROM_NAME || 'TaskFlow',
-        email: template.senderEmail || process.env.EMAIL_FROM || 'updates.codecatalyst@gmail.com'
+        email: template.senderEmail || process.env.EMAIL_FROM || 'noreply@origincreativeagency.com'
       } : null,
       useLayout: false // Predefined templates already have complete HTML structure
     });
@@ -378,7 +378,7 @@ router.get('/config', authenticate, requireCoreWorkspace, checkRole(['admin', 'h
   try {
     const config = {
       brevoConfigured: !!process.env.BREVO_API_KEY,
-      senderEmail: process.env.BREVO_SENDER_EMAIL || 'updates.codecatalyst@gmail.com',
+      senderEmail: process.env.BREVO_SENDER_EMAIL || 'noreply@origincreativeagency.com',
       senderName: process.env.BREVO_SENDER_NAME || 'TaskFlow'
     };
 
@@ -421,7 +421,7 @@ router.post('/test-send', authenticate, requireCoreWorkspace, checkRole(['admin'
       params: variables,
       from: {
         name: template.senderName || process.env.EMAIL_FROM_NAME || 'TaskFlow',
-        email: template.senderEmail || process.env.EMAIL_FROM || 'updates.codecatalyst@gmail.com'
+        email: template.senderEmail || process.env.EMAIL_FROM || 'noreply@origincreativeagency.com'
       },
       useLayout: true
     });
@@ -489,7 +489,7 @@ router.post('/bulk-send', authenticate, requireCoreWorkspace, checkRole(['admin'
           params: variables,
           from: {
             name: template.senderName || process.env.EMAIL_FROM_NAME || 'TaskFlow',
-            email: template.senderEmail || process.env.EMAIL_FROM || 'updates.codecatalyst@gmail.com'
+            email: template.senderEmail || process.env.EMAIL_FROM || 'noreply@origincreativeagency.com'
           },
           useLayout: true // Use layout to ensure proper HTML structure and CSS styling
         });
