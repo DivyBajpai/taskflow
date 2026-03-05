@@ -24,6 +24,7 @@ import leaveTypesRoutes from './routes/leaveTypes.js';
 import holidaysRoutes from './routes/holidays.js';
 import hrCalendarRoutes from './routes/hrCalendar.js';
 import emailTemplatesRoutes from './routes/emailTemplates.js';
+import activityRoutes from './routes/activity.js';
 
 // Import middleware
 import { authenticate } from './middleware/auth.js';
@@ -136,6 +137,7 @@ app.use('/api/tasks', authenticate, workspaceContext, taskRoutes);
 app.use('/api/comments', authenticate, workspaceContext, commentRoutes);
 app.use('/api/notifications', authenticate, workspaceContext, notificationRoutes);
 app.use('/api/changelog', authenticate, workspaceContext, changelogRoutes);
+app.use('/api/activity', authenticate, workspaceContext, activityRoutes);
 app.use('/api/workspaces', workspaceRoutes); // Workspace routes handle their own auth/context
 // HR Module routes with workspace context
 app.use('/api/hr/attendance', authenticate, workspaceContext, attendanceRoutes);

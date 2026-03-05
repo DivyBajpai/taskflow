@@ -7,6 +7,8 @@ import useRealtimeSync from '../hooks/useRealtimeSync';
 import api from '../api/axios';
 import Avatar from '../components/Avatar';
 import Sidebar from '../components/Sidebar';
+import ActivitySummary from '../components/ActivitySummary';
+import TeamActivityReport from '../components/TeamActivityReport';
 import { 
   Plus, Users, CheckSquare, TrendingUp, Clock, FileSpreadsheet, FileText, 
   AlertTriangle, Calendar, Filter, X, Download, Smartphone, Search,
@@ -755,6 +757,23 @@ const Dashboard = () => {
               </div>
             </div>
           )}
+
+          {/* Activity Tracking Section */}
+          <div className="mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+              {/* My Activity Summary - Available for all users */}
+              <div>
+                <ActivitySummary />
+              </div>
+
+              {/* Team Activity Report - Only for admins/HR */}
+              {user?.role && ['admin', 'hr', 'community_admin'].includes(user.role) && (
+                <div className="lg:col-span-2">
+                  <TeamActivityReport />
+                </div>
+              )}
+            </div>
+          </div>
 
           <div className="flex flex-col xl:flex-row gap-3 sm:gap-4 md:gap-6 h-full">
             {/* LEFT: Main Task Table */}
