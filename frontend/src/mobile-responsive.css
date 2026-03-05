@@ -1,13 +1,34 @@
 /* ========================================
-   COMPREHENSIVE MOBILE RESPONSIVE FIXES
+   COMPREHENSIVE MOBILE & TABLET RESPONSIVE FIXES
+   Optimized for phones (320px+) and tablets (768px+)
    ======================================== */
 
-/* Mobile-First Base Styles */
+/* Base Responsive Settings - All Devices */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+/* Mobile-First Base Styles (Phones: < 768px) */
 @media (max-width: 767px) {
   /* Ensure no horizontal overflow */
   html, body {
     overflow-x: hidden !important;
     width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* Container widths */
+  .container {
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 
   /* Responsive Typography */
@@ -32,6 +53,10 @@
   }
 
   /* Tailwind text classes override */
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+
   .text-2xl {
     font-size: 1.25rem !important;
   }
@@ -98,6 +123,393 @@
   .gap-8 {
     gap: 1rem !important;
   }
+
+  .gap-6 {
+    gap: 0.75rem !important;
+  }
+
+  .gap-4 {
+    gap: 0.5rem !important;
+  }
+
+  /* Card/Panel Responsiveness */
+  .rounded-lg {
+    border-radius: 0.375rem !important;
+  }
+
+  /* Make cards full width on mobile */
+  [class*="rounded-lg"][class*="border"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Chart containers - Recharts */
+  .recharts-wrapper {
+    height: 220px !important;
+    width: 100% !important;
+  }
+
+  .recharts-responsive-container {
+    min-height: 220px !important;
+    max-height: 250px !important;
+  }
+
+  /* Table Responsiveness */
+  table {
+    font-size: 0.75rem !important;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table td,
+  table th {
+    padding: 0.4rem !important;
+    font-size: 0.75rem !important;
+    white-space: nowrap;
+  }
+
+  /* Make tables horizontally scrollable */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Button Sizing */
+  button:not(.no-resize) {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.75rem !important;
+    min-height: 44px; /* iOS touch target minimum */
+  }
+
+  /* Icon buttons */
+  button[aria-label] {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  /* Input Fields - Prevent iOS zoom */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important; /* Prevents iOS zoom */
+    max-width: 100%;
+  }
+
+  /* Modal Responsiveness */
+  .fixed > div:not(.sidebar):not([role="menu"]) {
+    margin: 0.5rem !important;
+    max-width: calc(100vw - 1rem) !important;
+    max-height: calc(100vh - 1rem) !important;
+    overflow-y: auto !important;
+  }
+
+  /* Grid Adjustments - Force single column */
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4,
+  .md\\:grid-cols-2,
+  .md\\:grid-cols-3,
+  .md\\:grid-cols-4,
+  .lg\\:grid-cols-2,
+  .lg\\:grid-cols-3,
+  .lg\\:grid-cols-4 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+
+  /* Widget/Card Sizing - Force full width */
+  .w-80,
+  .w-96,
+  .w-64,
+  .xl\\:w-80 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl,
+  .max-w-4xl,
+  .max-w-3xl,
+  .max-w-2xl,
+  .max-w-xl {
+    max-width: 100% !important;
+  }
+
+  /* Flexbox - Stack vertically */
+  .xl\\:flex-row,
+  .lg\\:flex-row {
+    flex-direction: column !important;
+  }
+
+  /* Hide decorative or non-essential elements on mobile */
+  .hidden-mobile {
+    display: none !important;
+  }
+
+  /* Ensure buttons wrap properly */
+  .flex.gap-2,
+  .flex.gap-3,
+  .flex.gap-4 {
+    flex-wrap: wrap;
+  }
+
+  /* Search bars on mobile */
+  input[type="search"],
+  input[placeholder*="Search" i] {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* Dropdown menus */
+  select {
+    max-width: 100%;
+  }
+
+  /* Stat cards */
+  [class*="stats"] > div,
+  [class*="metric"] > div {
+    min-width: unset !important;
+  }
+}
+
+/* Small Mobile Devices (< 375px - iPhone SE, older phones) */
+@media (max-width: 374px) {
+  h1 {
+    font-size: 1.25rem !important;
+  }
+
+  h2 {
+    font-size: 1.125rem !important;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+
+  .text-xl {
+    font-size: 1rem !important;
+  }
+
+  .text-lg {
+    font-size: 0.875rem !important;
+  }
+
+  .text-base {
+    font-size: 0.8125rem !important;
+  }
+
+  .text-sm {
+    font-size: 0.75rem !important;
+  }
+
+  button {
+    padding: 0.375rem 0.6rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .p-4 {
+    padding: 0.375rem !important;
+  }
+
+  .px-4 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* Even smaller charts on tiny screens */
+  .recharts-wrapper {
+    height: 180px !important;
+  }
+
+  /* Tighter spacing */
+  .gap-4 {
+    gap: 0.375rem !important;
+  }
+
+  .gap-3 {
+    gap: 0.25rem !important;
+  }
+}
+
+/* Landscape Mobile (phones in landscape) */
+@media (max-width: 767px) and (orientation: landscape) {
+  header,
+  .h-16 {
+    height: 3rem !important;
+  }
+
+  .py-4 {
+    padding-top: 0.375rem !important;
+    padding-bottom: 0.375rem !important;
+  }
+
+  /* Reduce modal heights in landscape */
+  .fixed > div:not(.sidebar) {
+    max-height: calc(100vh - 0.5rem) !important;
+  }
+}
+
+/* Tablet Range (768px - 1023px - iPad, Android tablets) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Grid adjustments for tablets */
+  .lg\\:grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .lg\\:grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .xl\\:grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* Sidebar width for tablets */
+  .xl\\:w-80 {
+    width: 18rem !important;
+  }
+
+  /* Typography for tablets */
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Table spacing for tablets */
+  table td,
+  table th {
+    padding: 0.5rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* Comfortable touch targets */
+  button {
+    min-height: 40px;
+  }
+
+  /* Charts medium size for tablets */
+  .recharts-wrapper {
+    height: 300px !important;
+  }
+
+  .recharts-responsive-container {
+    min-height: 300px !important;
+    max-height: 350px !important;
+  }
+
+  /* Container widths */
+  .container {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+/* Tablet Portrait (iPad portrait) */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  /* Single column for better readability */
+  .xl\\:flex-row {
+    flex-direction: column !important;
+  }
+
+  /* Full width cards */
+  [class*="w-1/2"],
+  [class*="w-1/3"] {
+    width: 100% !important;
+  }
+}
+
+/* Tablet Landscape (iPad landscape) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  /* 3 columns to 2 columns */
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  /* 4 columns to 2 columns */
+  .grid-cols-4,
+  .xl\\:grid-cols-4 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets */
+  button,
+  a[role="button"],
+  [onclick] {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  /* Better spacing for touch */
+  .gap-2 {
+    gap: 0.75rem !important;
+  }
+
+  /* Remove hover states that don't work on touch */
+  *:hover {
+    /* Disabled hover effects on touch devices */
+  }
+}
+
+/* Fix for iOS Safari bottom bar */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available !important;
+  }
+
+  .min-h-screen {
+    min-height: -webkit-fill-available !important;
+  }
+}
+
+/* Mobile-specific utilities */
+@media (max-width: 767px) {
+  /* Stack cards vertically */
+  .mobile-stack > * {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+
+  /* Hide on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* Show only on mobile */
+  .show-mobile {
+    display: block !important;
+  }
+
+  /* Fullscreen modals on mobile */
+  .modal-fullscreen-mobile {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure proper print layout */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
 
   .gap-6 {
     gap: 0.75rem !important;
