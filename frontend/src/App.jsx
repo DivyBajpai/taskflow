@@ -6,7 +6,7 @@ import { SidebarProvider } from './context/SidebarContext';
 import { WorkspaceProvider } from './context/WorkspaceContext';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import useNotifications from './hooks/useNotifications';
-import InstallPWA from './components/InstallPWA';
+// import InstallPWA from './components/InstallPWA'; // Disabled PWA features
 import Login from './pages/Login';
 import Register from './pages/RegisterDisabled';
 import CommunityRegister from './pages/CommunityRegister';
