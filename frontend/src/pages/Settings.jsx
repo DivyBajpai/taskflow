@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -31,6 +31,29 @@ const Settings = () => {
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [isUploadingPicture, setIsUploadingPicture] = useState(false);
   const [pictureMessage, setPictureMessage] = useState({ type: '', text: '' });
+
+  // Fetch fresh user data on component mount
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await api.get('/users/me');
+        if (response.data.user) {
+          // Update user in context with fresh data including created_at
+          updateUser({
+            created_at: response.data.user.created_at,
+            full_name: response.data.user.full_name,
+            email: response.data.user.email,
+            role: response.data.user.role,
+            profile_picture: response.data.user.profile_picture
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch user data:', error);
+      }
+    };
+    
+    fetchUserData();
+  }, [updateUser]);
 
   const handleProfilePictureChange = async (e) => {
     const file = e.target.files?.[0];
