@@ -24,20 +24,44 @@ export const AuthProvider = ({ children }) => {
 
   const initializeSocket = (userId) => {
     const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
-    const newSocket = io(SOCKET_URL);
     
-    newSocket.on('connect', () => {
-      newSocket.emit('join', userId);
-    });
-
-    newSocket.on('disconnect', () => {
-      // Socket disconnected
-    });
-
-    // Note: Actual notification listeners are set up in useNotifications hook
-    // to avoid duplicate event handlers
+    // Don't initialize socket if URL is a placeholder
+    if (SOCKET_URL.includes('yourdomain.com')) {
+      console.warn('Socket URL not configured. Real-time features disabled.');
+      return;
+    }
     
-    setSocket(newSocket);
+    try {
+      const newSocket = io(SOCKET_URL, {
+        reconnection: true,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        reconnectionAttempts: 5,
+        transports: ['websocket', 'polling']
+      });
+      
+      newSocket.on('connect', () => {
+        console.log('Socket connected');
+        newSocket.emit('join', userId);
+      });
+
+      newSocket.on('connect_error', (error) => {
+        console.warn('Socket connection error:', error.message);
+        // Don't crash the app, just log the error
+      });
+
+      newSocket.on('disconnect', () => {
+        console.log('Socket disconnected');
+      });
+
+      // Note: Actual notification listeners are set up in useNotifications hook
+      // to avoid duplicate event handlers
+      
+      setSocket(newSocket);
+    } catch (error) {
+      console.error('Failed to initialize socket:', error);
+      // Don't crash the app if socket fails
+    }
   };
 
   const login = async (email, password) => {

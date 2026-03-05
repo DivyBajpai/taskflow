@@ -148,7 +148,7 @@ const WorkLogList = () => {
               <span className="font-semibold text-blue-500">{totalHours.toFixed(2)}h</span> total
             </p>
             <p className={`text-sm ${theme === 'dark' ? 'text-[#9da8b9]' : 'text-gray-600'}`}>
-              <span className="font-semibold text-green-500">{stats.averageHoursPerDay.toFixed(1)}h</span> avg/day
+              <span className="font-semibold text-green-500">{Number(stats.averageHoursPerDay).toFixed(1)}h</span> avg/day
             </p>
             <p className={`text-sm ${theme === 'dark' ? 'text-[#9da8b9]' : 'text-gray-600'}`}>
               <span className="font-semibold text-purple-500">{stats.totalLogs}</span> entries
