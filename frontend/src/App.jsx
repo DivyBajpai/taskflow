@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -5,6 +6,7 @@ import { SidebarProvider } from './context/SidebarContext';
 import { WorkspaceProvider } from './context/WorkspaceContext';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import useNotifications from './hooks/useNotifications';
+import InstallPWA from './components/InstallPWA';
 import Login from './pages/Login';
 import Register from './pages/RegisterDisabled';
 import CommunityRegister from './pages/CommunityRegister';
@@ -206,6 +208,27 @@ function AppContent() {
 }
 
 function App() {
+  useEffect(() => {
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+            
+            // Check for updates periodically
+            setInterval(() => {
+              registration.update();
+            }, 60000); // Check every minute
+          })
+          .catch(error => {
+            console.log('SW registration failed: ', error);
+          });
+      });
+    }
+  }, []);
+
   return (
     <ThemeProvider>
       <AuthProvider>
@@ -213,6 +236,7 @@ function App() {
           <SidebarProvider>
             <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
               <AppContent />
+              <InstallPWA />
             </BrowserRouter>
           </SidebarProvider>
         </WorkspaceProvider>

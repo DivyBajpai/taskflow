@@ -75,7 +75,7 @@ const WorkLogList = () => {
 
       setStats({
         totalLogs: logs.length,
-        averageHoursPerDay: logs.length > 0 ? (total / daysInRange).toFixed(1) : 0,
+        averageHoursPerDay: logs.length > 0 ? (total / daysInRange) : 0,
         categoryBreakdown
       });
     } catch (error) {
