@@ -246,4 +246,209 @@ router.get('/summary', authenticate, async (req, res) => {
   }
 });
 
+// ============ WORK LOG ROUTES (Manual Productivity Tracking) ============
+
+// Add a work log entry
+router.post('/work-log', authenticate, async (req, res) => {
+  try {
+    const { title, description, hoursSpent, logDate, logTime, category } = req.body;
+    const userId = req.user._id;
+    const workspaceId = req.context.workspaceId;
+
+    // Validation
+    if (!title || !hoursSpent) {
+      return res.status(400).json({ message: 'Title and hours spent are required' });
+    }
+
+    if (hoursSpent <= 0) {
+      return res.status(400).json({ message: 'Hours spent must be greater than 0' });
+    }
+
+    // Get or create activity record for the log date
+    const targetDate = logDate ? new Date(logDate) : new Date();
+    targetDate.setHours(0, 0, 0, 0);
+
+    let activity = await UserActivity.findOne({
+      userId,
+      workspaceId,
+      date: targetDate
+    });
+
+    if (!activity) {
+      activity = new UserActivity({
+        userId,
+        workspaceId,
+        date: targetDate,
+        totalActiveSeconds: 0,
+        totalLoggedHours: 0,
+        workLogs: [],
+        sessions: [],
+        metadata: {
+          mouseClicks: 0,
+          keystrokes: 0,
+          pageViews: 0,
+          tasksCreated: 0,
+          tasksCompleted: 0,
+          commentsAdded: 0
+        }
+      });
+    }
+
+    // Add work log
+    const workLog = activity.addWorkLog({
+      title,
+      description,
+      hoursSpent: parseFloat(hoursSpent),
+      logDate: targetDate,
+      logTime,
+      category
+    });
+
+    await activity.save();
+
+    res.status(201).json({
+      message: 'Work log added successfully',
+      workLog,
+      totalLoggedHours: activity.totalLoggedHours
+    });
+  } catch (error) {
+    console.error('Add work log error:', error);
+    res.status(500).json({ message: 'Failed to add work log', error: error.message });
+  }
+});
+
+// Get work logs for a date range
+router.get('/work-logs', authenticate, async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    const userId = req.user._id;
+    const workspaceId = req.context.workspaceId;
+
+    const start = startDate ? new Date(startDate) : new Date();
+    start.setHours(0, 0, 0, 0);
+    
+    const end = endDate ? new Date(endDate) : new Date();
+    end.setHours(23, 59, 59, 999);
+
+    const activities = await UserActivity.find({
+      userId,
+      workspaceId,
+      date: { $gte: start, $lte: end },
+      'workLogs.0': { $exists: true } // Only get records with work logs
+    }).sort({ date: -1 });
+
+    // Flatten work logs with their dates
+    const workLogs = [];
+    activities.forEach(activity => {
+      activity.workLogs.forEach(log => {
+        workLogs.push({
+          _id: log._id,
+          title: log.title,
+          description: log.description,
+          hoursSpent: log.hoursSpent,
+          logDate: log.logDate,
+          logTime: log.logTime,
+          category: log.category,
+          createdAt: log.createdAt,
+          updatedAt: log.updatedAt,
+          activityDate: activity.date
+        });
+      });
+    });
+
+    // Calculate totals
+    const totalHours = workLogs.reduce((sum, log) => sum + log.hoursSpent, 0);
+
+    res.json({
+      workLogs,
+      totalHours,
+      count: workLogs.length,
+      dateRange: { startDate: start, endDate: end }
+    });
+  } catch (error) {
+    console.error('Get work logs error:', error);
+    res.status(500).json({ message: 'Failed to fetch work logs', error: error.message });
+  }
+});
+
+// Update a work log entry
+router.patch('/work-log/:activityId/:workLogId', authenticate, async (req, res) => {
+  try {
+    const { activityId, workLogId } = req.params;
+    const { title, description, hoursSpent, logDate, logTime, category } = req.body;
+    const userId = req.user._id;
+    const workspaceId = req.context.workspaceId;
+
+    const activity = await UserActivity.findOne({
+      _id: activityId,
+      userId,
+      workspaceId
+    });
+
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity record not found' });
+    }
+
+    const updates = {};
+    if (title !== undefined) updates.title = title;
+    if (description !== undefined) updates.description = description;
+    if (hoursSpent !== undefined) updates.hoursSpent = parseFloat(hoursSpent);
+    if (logDate !== undefined) updates.logDate = logDate;
+    if (logTime !== undefined) updates.logTime = logTime;
+    if (category !== undefined) updates.category = category;
+
+    const workLog = activity.updateWorkLog(workLogId, updates);
+
+    if (!workLog) {
+      return res.status(404).json({ message: 'Work log not found' });
+    }
+
+    await activity.save();
+
+    res.json({
+      message: 'Work log updated successfully',
+      workLog,
+      totalLoggedHours: activity.totalLoggedHours
+    });
+  } catch (error) {
+    console.error('Update work log error:', error);
+    res.status(500).json({ message: 'Failed to update work log', error: error.message });
+  }
+});
+
+// Delete a work log entry
+router.delete('/work-log/:activityId/:workLogId', authenticate, async (req, res) => {
+  try {
+    const { activityId, workLogId } = req.params;
+    const userId = req.user._id;
+    const workspaceId = req.context.workspaceId;
+
+    const activity = await UserActivity.findOne({
+      _id: activityId,
+      userId,
+      workspaceId
+    });
+
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity record not found' });
+    }
+
+    const deleted = activity.deleteWorkLog(workLogId);
+
+    if (!deleted) {
+      return res.status(404).json({ message: 'Work log not found' });
+    }
+
+    await activity.save();
+
+    res.json({
+      message: 'Work log deleted successfully',
+      totalLoggedHours: activity.totalLoggedHours
+    });
+  } catch (error) {
+    console.error('Delete work log error:', error);
+    res.status(500).json({ message: 'Failed to delete work log', error: error.message });
+  }
+});
+
 export default router;

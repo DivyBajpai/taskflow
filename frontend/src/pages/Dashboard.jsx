@@ -9,6 +9,7 @@ import Avatar from '../components/Avatar';
 import Sidebar from '../components/Sidebar';
 import ActivitySummary from '../components/ActivitySummary';
 import TeamActivityReport from '../components/TeamActivityReport';
+import WorkLogList from '../components/WorkLogList';
 import { 
   Plus, Users, CheckSquare, TrendingUp, Clock, FileSpreadsheet, FileText, 
   AlertTriangle, Calendar, Filter, X, Download, Smartphone, Search,
@@ -773,6 +774,11 @@ const Dashboard = () => {
                 </div>
               )}
             </div>
+          </div>
+
+          {/* Work Logs Section - Jira-style manual productivity tracking */}
+          <div className="mb-8">
+            <WorkLogList />
           </div>
 
           <div className="flex flex-col xl:flex-row gap-3 sm:gap-4 md:gap-6 h-full">
