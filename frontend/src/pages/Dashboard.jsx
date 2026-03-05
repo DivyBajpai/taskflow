@@ -347,6 +347,12 @@ const Dashboard = () => {
   useEffect(() => {
     if (user) {
       fetchDashboardData();
+    } else {
+      // If no user after a delay, stop loading to prevent blank screen
+      const timeout = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      return () => clearTimeout(timeout);
     }
   }, [user, fetchDashboardData]);
 
@@ -758,9 +764,12 @@ const Dashboard = () => {
           )}
 
           {/* Work Logs Section - Manual productivity tracking */}
+          {/* Temporarily disabled to debug dashboard loading issue */}
+          {/*
           <div className="mb-8">
             <WorkLogList />
           </div>
+          */}
 
           <div className="flex flex-col xl:flex-row gap-3 sm:gap-4 md:gap-6 h-full">
             {/* LEFT: Main Task Table */}
