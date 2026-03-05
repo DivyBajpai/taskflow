@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { VitePWA } from 'vite-plugin-pwa';
+// import { VitePWA } from 'vite-plugin-pwa'; // Disabled - causing build errors
 
 export default defineConfig(({ mode }) => {
   const isDevelopment = mode === 'development';
@@ -8,23 +8,27 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
+      // PWA plugin disabled due to build issues and reload loops
+      // Can be re-enabled later with proper configuration
+      /* 
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: ['logo.png', 'icons/*.png', 'sw.js'],
-        injectRegister: false, // We'll register manually in App.jsx
+        injectRegister: false,
         strategies: 'injectManifest',
         srcDir: 'public',
         filename: 'sw.js',
-        manifest: false, // Use existing manifest.json
+        manifest: false,
         workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
-          maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3 MB
+          globPatterns: ['**\/*.{js,css,html,ico,png,svg,woff,woff2}'],
+          maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         },
         devOptions: {
           enabled: true,
           type: 'module'
         }
       })
+      */
     ],
     server: {
       host: '0.0.0.0',
