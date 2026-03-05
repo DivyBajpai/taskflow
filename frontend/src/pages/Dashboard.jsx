@@ -649,8 +649,8 @@ const Dashboard = () => {
                 {/* Status Distribution Pie Chart */}
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-4 sm:p-6`}>
                   <h4 className={`text-sm sm:text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Status Distribution</h4>
-                  <div className="h-[280px] sm:h-[300px] w-full" style={{ minHeight: '280px', minWidth: '200px' }}>
-                    <ResponsiveContainer width="100%" height="100%" minWidth={200} minHeight={280}>
+                  <div className="h-[240px] sm:h-[280px] md:h-[300px] w-full" style={{ minHeight: '240px', minWidth: '100%' }}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                       <PieChart>
                         <Pie
                           data={analyticsData.statusDistribution}
@@ -661,7 +661,7 @@ const Dashboard = () => {
                             if (percent < 0.05) return null;
                             return `${name.split(' ')[0]} ${(percent * 100).toFixed(0)}%`;
                           }}
-                          outerRadius="70%"
+                          outerRadius={window.innerWidth < 768 ? "65%" : "70%"}
                           fill="#8884d8"
                           dataKey="value"
                         >
@@ -691,19 +691,19 @@ const Dashboard = () => {
                 {/* Priority Distribution Bar Chart */}
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-4 sm:p-6`}>
                   <h4 className={`text-sm sm:text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Priority Breakdown</h4>
-                  <div className="h-[280px] sm:h-[300px] w-full" style={{ minHeight: '280px', minWidth: '200px' }}>
-                    <ResponsiveContainer width="100%" height="100%" minWidth={200} minHeight={280}>
-                      <BarChart data={analyticsData.priorityDistribution} margin={{ top: 10, right: 10, left: 0, bottom: 10 }}>
+                  <div className="h-[240px] sm:h-[280px] md:h-[300px] w-full" style={{ minHeight: '240px', minWidth: '100%' }}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                      <BarChart data={analyticsData.priorityDistribution} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? '#282f39' : '#e5e7eb'} />
                         <XAxis 
                           dataKey="name" 
                           stroke={theme === 'dark' ? '#9da8b9' : '#6b7280'} 
-                          tick={{ fontSize: 13 }}
+                          tick={{ fontSize: window.innerWidth < 768 ? 10 : 12 }}
                           tickLine={{ stroke: theme === 'dark' ? '#9da8b9' : '#6b7280' }}
                         />
                         <YAxis 
                           stroke={theme === 'dark' ? '#9da8b9' : '#6b7280'} 
-                          tick={{ fontSize: 13 }}
+                          tick={{ fontSize: window.innerWidth < 768 ? 10 : 12 }}
                           tickLine={{ stroke: theme === 'dark' ? '#9da8b9' : '#6b7280' }}
                         />
                         <Tooltip 
@@ -723,23 +723,23 @@ const Dashboard = () => {
                 {/* Team Performance */}
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-4 sm:p-6`}>
                   <h4 className={`text-sm sm:text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Team Distribution</h4>
-                  <div className="h-[280px] sm:h-[300px] w-full" style={{ minHeight: '280px', minWidth: '200px' }}>
-                    <ResponsiveContainer width="100%" height="100%" minWidth={200} minHeight={280}>
-                      <BarChart data={analyticsData.teamDistribution.slice(0, 5)} margin={{ top: 10, right: 10, left: 0, bottom: 60 }}>
+                  <div className="h-[240px] sm:h-[280px] md:h-[300px] w-full" style={{ minHeight: '240px', minWidth: '100%' }}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                      <BarChart data={analyticsData.teamDistribution.slice(0, 5)} margin={{ top: 5, right: 5, left: -10, bottom: window.innerWidth < 768 ? 50 : 60 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? '#282f39' : '#e5e7eb'} />
                         <XAxis 
                           dataKey="name" 
                           stroke={theme === 'dark' ? '#9da8b9' : '#6b7280'} 
-                          tick={{ fontSize: 12 }} 
-                          angle={-35} 
+                          tick={{ fontSize: window.innerWidth < 768 ? 9 : 11 }} 
+                          angle={-30} 
                           textAnchor="end" 
-                          height={80}
+                          height={window.innerWidth < 768 ? 60 : 80}
                           interval={0}
                           tickLine={{ stroke: theme === 'dark' ? '#9da8b9' : '#6b7280' }}
                         />
                         <YAxis 
                           stroke={theme === 'dark' ? '#9da8b9' : '#6b7280'} 
-                          tick={{ fontSize: 13 }}
+                          tick={{ fontSize: window.innerWidth < 768 ? 10 : 12 }}
                           tickLine={{ stroke: theme === 'dark' ? '#9da8b9' : '#6b7280' }}
                         />
                         <Tooltip 

@@ -143,15 +143,89 @@ html {
     margin-right: 0 !important;
   }
 
-  /* Chart containers - Recharts */
+  /* Chart containers - Recharts COMPREHENSIVE MOBILE FIX */
   .recharts-wrapper {
-    height: 220px !important;
+    height: 240px !important;
     width: 100% !important;
+    overflow: visible !important;
   }
 
   .recharts-responsive-container {
-    min-height: 220px !important;
-    max-height: 250px !important;
+    min-height: 240px !important;
+    max-height: 280px !important;
+  }
+
+  .recharts-surface {
+    overflow: visible !important;
+  }
+
+  /* Recharts text elements - Force readable font size on mobile */
+  .recharts-text {
+    font-size: 10px !important;
+  }
+
+  /* X and Y axis text */
+  .recharts-cartesian-axis-tick-value {
+    font-size: 9px !important;
+  }
+
+  .recharts-xAxis .recharts-text,
+  .recharts-yAxis .recharts-text {
+    font-size: 9px !important;
+  }
+
+  /* Pie chart labels - smaller on mobile */
+  .recharts-pie-label-text {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+  }
+
+  /* Legend text */
+  .recharts-legend-wrapper {
+    font-size: 10px !important;
+    margin-top: 8px !important;
+  }
+
+  .recharts-legend-item-text {
+    font-size: 10px !important;
+  }
+
+  /* Tooltip */
+  .recharts-tooltip-wrapper {
+    z-index: 1000 !important;
+  }
+
+  .recharts-default-tooltip {
+    font-size: 11px !important;
+    padding: 8px !important;
+    max-width: 200px !important;
+  }
+
+  /* Hide axis labels that are too long on mobile */
+  .recharts-label {
+    font-size: 9px !important;
+  }
+
+  /* Ensure chart containers don't overflow */
+  [class*="h-[280px]"],
+  [class*="h-[300px]"] {
+    height: 240px !important;
+  }
+
+  /* Reduce chart margins for mobile */
+  .recharts-wrapper svg {
+    overflow: visible !important;
+  }
+
+  /* Fix chart container divs */
+  div[style*="minHeight: '280px'"],
+  div[style*="minHeight: '300px'"] {
+    min-height: 240px !important;
+  }
+
+  /* Better spacing for chart cards */
+  [class*="grid"][class*="grid-cols"] > div:has(.recharts-wrapper) {
+    margin-bottom: 1rem;
   }
 
   /* Table Responsiveness */
@@ -319,7 +393,26 @@ html {
 
   /* Even smaller charts on tiny screens */
   .recharts-wrapper {
-    height: 180px !important;
+    height: 200px !important;
+  }
+
+  .recharts-responsive-container {
+    min-height: 200px !important;
+    max-height: 220px !important;
+  }
+
+  /* Even smaller text for tiny screens */
+  .recharts-text,
+  .recharts-cartesian-axis-tick-value {
+    font-size: 8px !important;
+  }
+
+  .recharts-pie-label-text {
+    font-size: 9px !important;
+  }
+
+  .recharts-legend-item-text {
+    font-size: 9px !important;
   }
 
   /* Tighter spacing */
@@ -393,12 +486,29 @@ html {
 
   /* Charts medium size for tablets */
   .recharts-wrapper {
-    height: 300px !important;
+    height: 320px !important;
   }
 
   .recharts-responsive-container {
-    min-height: 300px !important;
-    max-height: 350px !important;
+    min-height: 320px !important;
+    max-height: 380px !important;
+  }
+
+  /* Tablet-sized text */
+  .recharts-text {
+    font-size: 11px !important;
+  }
+
+  .recharts-cartesian-axis-tick-value {
+    font-size: 11px !important;
+  }
+
+  .recharts-pie-label-text {
+    font-size: 12px !important;
+  }
+
+  .recharts-legend-item-text {
+    font-size: 11px !important;
   }
 
   /* Container widths */
@@ -494,6 +604,24 @@ html {
     max-height: 100vh !important;
     border-radius: 0 !important;
     margin: 0 !important;
+  }
+
+  /* Analytics/Dashboard chart grids - ensure proper stacking */
+  .grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Chart parent containers */
+  div:has(> .recharts-responsive-container) {
+    overflow: visible !important;
+    width: 100% !important;
+  }
+
+  /* Prevent chart text from being cut off */
+  .recharts-wrapper,
+  .recharts-surface {
+    overflow: visible !important;
   }
 }
 
