@@ -209,22 +209,13 @@ function AppContent() {
 
 function App() {
   useEffect(() => {
-    // Register service worker
+    // Unregister any existing service workers to stop reload loops
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-          .register('/sw.js')
-          .then(registration => {
-            console.log('SW registered: ', registration);
-            
-            // Check for updates periodically
-            setInterval(() => {
-              registration.update();
-            }, 60000); // Check every minute
-          })
-          .catch(error => {
-            console.log('SW registration failed: ', error);
-          });
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(registration => {
+          registration.unregister();
+          console.log('Unregistered service worker');
+        });
       });
     }
   }, []);
@@ -236,7 +227,6 @@ function App() {
           <SidebarProvider>
             <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
               <AppContent />
-              <InstallPWA />
             </BrowserRouter>
           </SidebarProvider>
         </WorkspaceProvider>
