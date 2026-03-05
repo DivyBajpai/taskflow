@@ -145,14 +145,15 @@ html {
 
   /* Chart containers - Recharts COMPREHENSIVE MOBILE FIX */
   .recharts-wrapper {
-    height: 240px !important;
     width: 100% !important;
+    min-height: 350px !important;
     overflow: visible !important;
   }
 
   .recharts-responsive-container {
     min-height: 350px !important;
     max-height: 450px !important;
+    width: 100% !important;
   }
 
   .recharts-surface {
@@ -228,6 +229,27 @@ html {
   /* Better spacing for chart cards */
   [class*="grid"][class*="grid-cols"] > div:has(.recharts-wrapper) {
     margin-bottom: 1rem;
+    width: 100% !important;
+  }
+
+  /* Ensure chart parent containers are full width */
+  div:has(> .recharts-responsive-container) {
+    width: 100% !important;
+    min-width: 100% !important;
+    display: block !important;
+  }
+
+  /* Fix any flexbox issues with chart containers */
+  .recharts-responsive-container,
+  .recharts-wrapper {
+    display: block !important;
+    position: relative !important;
+  }
+
+  /* Ensure SVG fills container */
+  .recharts-wrapper svg {
+    width: 100% !important;
+    height: 100% !important;
   }
 
   /* Table Responsiveness */
@@ -393,14 +415,16 @@ html {
     padding-right: 0.5rem !important;
   }
 
-  /* Even smaller charts on tiny screens */
+  /* Charts on tiny screens - still readable */
   .recharts-wrapper {
-    height: 200px !important;
+    width: 100% !important;
+    min-height: 320px !important;
   }
 
   .recharts-responsive-container {
-    min-height: 200px !important;
-    max-height: 220px !important;
+    min-height: 320px !important;
+    max-height: 400px !important;
+    width: 100% !important;
   }
 
   /* Even smaller text for tiny screens */
