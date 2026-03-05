@@ -49,18 +49,18 @@ export const useChartConfig = () => {
     width,
     
     // Font sizes
-    axisFontSize: isMobile ? 9 : isTablet ? 11 : 12,
-    labelFontSize: isMobile ? 10 : isTablet ? 12 : 13,
-    legendFontSize: isMobile ? 10 : 11,
+    axisFontSize: isMobile ? 10 : isTablet ? 11 : 12,
+    labelFontSize: isMobile ? 11 : isTablet ? 12 : 13,
+    legendFontSize: isMobile ? 11 : 11,
     
-    // Chart heights
-    chartHeight: isMobile ? 240 : isTablet ? 320 : 300,
+    // Chart heights - increased for better mobile visibility
+    chartHeight: isMobile ? 350 : isTablet ? 340 : 300,
     
     // Margins
     margin: {
       top: 5,
-      right: isMobile ? 5 : 10,
-      left: isMobile ? -10 : 0,
+      right: isMobile ? 10 : 10,
+      left: isMobile ? -5 : 0,
       bottom: isMobile ? 5 : 10,
     },
     
@@ -68,8 +68,8 @@ export const useChartConfig = () => {
     xAxisAngle: isMobile ? -30 : -45,
     xAxisHeight: isMobile ? 60 : 80,
     
-    // Pie chart
-    pieOuterRadius: isMobile ? "65%" : "70%",
+    // Pie chart - larger radius for better visibility
+    pieOuterRadius: isMobile ? "75%" : "70%",
   };
 };
 

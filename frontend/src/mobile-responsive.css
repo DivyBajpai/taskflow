@@ -151,8 +151,8 @@ html {
   }
 
   .recharts-responsive-container {
-    min-height: 240px !important;
-    max-height: 280px !important;
+    min-height: 350px !important;
+    max-height: 450px !important;
   }
 
   .recharts-surface {
@@ -161,33 +161,33 @@ html {
 
   /* Recharts text elements - Force readable font size on mobile */
   .recharts-text {
-    font-size: 10px !important;
+    font-size: 11px !important;
   }
 
   /* X and Y axis text */
   .recharts-cartesian-axis-tick-value {
-    font-size: 9px !important;
+    font-size: 10px !important;
   }
 
   .recharts-xAxis .recharts-text,
   .recharts-yAxis .recharts-text {
-    font-size: 9px !important;
+    font-size: 10px !important;
   }
 
-  /* Pie chart labels - smaller on mobile */
+  /* Pie chart labels - larger on mobile for better readability */
   .recharts-pie-label-text {
-    font-size: 10px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
   }
 
   /* Legend text */
   .recharts-legend-wrapper {
-    font-size: 10px !important;
+    font-size: 11px !important;
     margin-top: 8px !important;
   }
 
   .recharts-legend-item-text {
-    font-size: 10px !important;
+    font-size: 11px !important;
   }
 
   /* Tooltip */
@@ -203,13 +203,14 @@ html {
 
   /* Hide axis labels that are too long on mobile */
   .recharts-label {
-    font-size: 9px !important;
+    font-size: 10px !important;
   }
 
-  /* Ensure chart containers don't overflow */
+  /* Ensure chart containers have proper height */
   [class*="h-[280px]"],
-  [class*="h-[300px]"] {
-    height: 240px !important;
+  [class*="h-[300px]"],
+  [class*="h-[350px]"] {
+    height: 350px !important;
   }
 
   /* Reduce chart margins for mobile */
@@ -219,8 +220,9 @@ html {
 
   /* Fix chart container divs */
   div[style*="minHeight: '280px'"],
-  div[style*="minHeight: '300px'"] {
-    min-height: 240px !important;
+  div[style*="minHeight: '300px'"],
+  div[style*="minHeight: '350px'"] {
+    min-height: 350px !important;
   }
 
   /* Better spacing for chart cards */

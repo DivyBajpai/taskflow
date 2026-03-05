@@ -651,7 +651,7 @@ const Dashboard = () => {
                 {/* Status Distribution Pie Chart */}
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-4 sm:p-6`}>
                   <h4 className={`text-sm sm:text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Status Distribution</h4>
-                  <div className="h-[240px] sm:h-[280px] md:h-[300px] w-full" style={{ minHeight: '240px', minWidth: '100%' }}>
+                  <div className="h-[350px] sm:h-[340px] md:h-[300px] w-full" style={{ minHeight: '350px', minWidth: '100%' }}>
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                       <PieChart>
                         <Pie
@@ -693,7 +693,7 @@ const Dashboard = () => {
                 {/* Priority Distribution Bar Chart */}
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-4 sm:p-6`}>
                   <h4 className={`text-sm sm:text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Priority Breakdown</h4>
-                  <div className="h-[240px] sm:h-[280px] md:h-[300px] w-full" style={{ minHeight: '240px', minWidth: '100%' }}>
+                  <div className="h-[350px] sm:h-[340px] md:h-[300px] w-full" style={{ minHeight: '350px', minWidth: '100%' }}>
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                       <BarChart data={analyticsData.priorityDistribution} margin={chartConfig.margin}>
                         <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? '#282f39' : '#e5e7eb'} />
@@ -725,7 +725,7 @@ const Dashboard = () => {
                 {/* Team Performance */}
                 <div className={`${theme === 'dark' ? 'bg-[#1c2027]' : 'bg-white'} rounded border ${theme === 'dark' ? 'border-[#282f39]' : 'border-gray-200'} p-4 sm:p-6`}>
                   <h4 className={`text-sm sm:text-base font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Team Distribution</h4>
-                  <div className="h-[240px] sm:h-[280px] md:h-[300px] w-full" style={{ minHeight: '240px', minWidth: '100%' }}>
+                  <div className="h-[350px] sm:h-[340px] md:h-[300px] w-full" style={{ minHeight: '350px', minWidth: '100%' }}>
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                       <BarChart data={analyticsData.teamDistribution.slice(0, 5)} margin={{ ...chartConfig.margin, bottom: chartConfig.xAxisHeight - 20 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? '#282f39' : '#e5e7eb'} />
