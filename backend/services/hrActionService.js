@@ -102,7 +102,14 @@ class HrActionService {
         leaveId,
         employeeId: leave.userId._id,
         employeeEmail: leave.userId.email,
-        employeeName: leave.userId.full_name
+        employeeName: leave.userId.full_name,
+        // Add complete leave data for email template
+        leaveTypeId: leave.leaveTypeId,
+        startDate: leave.start_date,
+        endDate: leave.end_date,
+        days: leave.days,
+        reason: leave.reason,
+        approvedById: hrUser._id
       }
     };
   }
@@ -164,7 +171,13 @@ class HrActionService {
         employeeId: leave.userId._id,
         employeeEmail: leave.userId.email,
         employeeName: leave.userId.full_name,
-        reason
+        reason,
+        // Add complete leave data for email template
+        leaveTypeId: leave.leaveTypeId,
+        startDate: leave.start_date,
+        endDate: leave.end_date,
+        days: leave.days,
+        approvedById: hrUser._id
       }
     };
   }

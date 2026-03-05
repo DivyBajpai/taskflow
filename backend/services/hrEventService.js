@@ -95,15 +95,16 @@ class HrEventService {
         return { success: false, reason: 'Template not found', event, templateCode };
       }
 
-      // Resolve variables
-      const params = this.resolveVariables(event, data);
+      // Resolve variables (now async)
+      const params = await this.resolveVariables(event, data);
 
-      // Send email
+      // Send email with layout wrapper
       const emailResult = await brevoEmailService.send({
         to: recipientEmail,
         subject: template.subject,
         htmlContent: template.htmlContent,
-        params
+        params,
+        useLayout: true // Wrap template content in base layout
       });
 
       // Log delivery result
@@ -160,47 +161,83 @@ class HrEventService {
   /**
    * Resolve variables for template interpolation
    */
-  static resolveVariables(event, data) {
+  static async resolveVariables(event, data) {
+    // Base variables
     const baseVars = {
       employeeName: data.employeeName || '',
+      fullName: data.employeeName || '',
       employeeEmail: data.employeeEmail || '',
-      currentDate: new Date().toLocaleDateString(),
-      currentTime: new Date().toLocaleTimeString()
+      currentDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+      currentTime: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      workspaceName: process.env.WORKSPACE_NAME || 'TaskFlow',
+      loginUrl: process.env.CLIENT_URL || 'https://taskflow-nine-phi.vercel.app',
+      supportEmail: process.env.EMAIL_FROM || 'support@taskflow.com'
     };
 
     switch (event) {
       case 'LEAVE_APPROVED':
-        return {
-          ...baseVars,
-          leaveId: data.leaveId || '',
-          approvalDate: new Date().toLocaleDateString()
-        };
+        try {
+          // Fetch complete leave data
+          const leave = await import('../models/LeaveRequest.js').then(m => m.default.findById(data.leaveId).populate('leaveTypeId').populate('userId'));
+          const approver = await User.findById(data.approvedById);
+          const balance = await import('../models/LeaveBalance.js').then(m => m.default.findOne({
+            userId: data.employeeId,
+            leaveTypeId: data.leaveTypeId,
+            year: new Date().getFullYear()
+          }));
+
+          return {
+            ...baseVars,
+            leaveType: leave?.leaveTypeId?.name || 'Leave',
+            startDate: data.startDate ? new Date(data.startDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
+            endDate: data.endDate ? new Date(data.endDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
+            days: data.days || 0,
+            approvedBy: approver?.full_name || 'HR Team',
+            remainingDays: balance?.available || 0,
+            reason: data.reason || ''
+          };
+        } catch (error) {
+          console.error('Error resolving LEAVE_APPROVED variables:', error);
+          return { ...baseVars, leaveType: 'Leave', days: data.days || 0 };
+        }
 
       case 'LEAVE_REJECTED':
-        return {
-          ...baseVars,
-          leaveId: data.leaveId || '',
-          rejectionReason: data.reason || '',
-          rejectionDate: new Date().toLocaleDateString()
-        };
+        try {
+          const leave = await import('../models/LeaveRequest.js').then(m => m.default.findById(data.leaveId).populate('leaveTypeId'));
+          const rejector = await User.findById(data.approvedById);
+
+          return {
+            ...baseVars,
+            leaveType: leave?.leaveTypeId?.name || 'Leave',
+            startDate: data.startDate ? new Date(data.startDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
+            endDate: data.endDate ? new Date(data.endDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
+            days: data.days || 0,
+            rejectionReason: data.reason || 'Not specified',
+            rejectedBy: rejector?.full_name || 'HR Team',
+            reason: data.reason || ''
+          };
+        } catch (error) {
+          console.error('Error resolving LEAVE_REJECTED variables:', error);
+          return { ...baseVars, rejectionReason: data.reason || '' };
+        }
 
       case 'ATTENDANCE_OVERRIDDEN':
         return {
           ...baseVars,
           attendanceId: data.attendanceId || '',
-          overrideDate: new Date().toLocaleDateString()
+          overrideDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         };
 
       case 'EMPLOYEE_ACTIVATED':
         return {
           ...baseVars,
-          activationDate: new Date().toLocaleDateString()
+          activationDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         };
 
       case 'EMPLOYEE_DEACTIVATED':
         return {
           ...baseVars,
-          deactivationDate: new Date().toLocaleDateString()
+          deactivationDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         };
 
       default:
