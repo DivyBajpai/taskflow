@@ -14,6 +14,11 @@ const WorkLogList = () => {
   const [editingLog, setEditingLog] = useState(null);
   const [dateRange, setDateRange] = useState('week');
   const [totalHours, setTotalHours] = useState(0);
+  const [stats, setStats] = useState({
+    totalLogs: 0,
+    averageHoursPerDay: 0,
+    categoryBreakdown: {}
+  });
 
   const categories = {
     development: { label: '💻 Development', color: 'blue' },
@@ -51,8 +56,28 @@ const WorkLogList = () => {
         }
       });
 
-      setWorkLogs(response.data.workLogs || []);
-      setTotalHours(response.data.totalHours || 0);
+      const logs = response.data.workLogs || [];
+      const total = response.data.totalHours || 0;
+      
+      setWorkLogs(logs);
+      setTotalHours(total);
+
+      // Calculate stats
+      const daysInRange = dateRange === 'today' ? 1 : 
+                         dateRange === 'week' ? 7 : 30;
+      
+      // Category breakdown
+      const categoryBreakdown = {};
+      logs.forEach(log => {
+        const cat = log.category || 'other';
+        categoryBreakdown[cat] = (categoryBreakdown[cat] || 0) + log.hoursSpent;
+      });
+
+      setStats({
+        totalLogs: logs.length,
+        averageHoursPerDay: logs.length > 0 ? (total / daysInRange).toFixed(1) : 0,
+        categoryBreakdown
+      });
     } catch (error) {
       console.error('Failed to fetch work logs:', error);
     } finally {
@@ -118,9 +143,17 @@ const WorkLogList = () => {
           <h3 className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
             My Work Logs
           </h3>
-          <p className={`text-sm ${theme === 'dark' ? 'text-[#9da8b9]' : 'text-gray-600'} mt-1`}>
-            Total: <span className="font-semibold text-blue-500">{totalHours.toFixed(2)}h</span> logged
-          </p>
+          <div className="flex gap-4 mt-2">
+            <p className={`text-sm ${theme === 'dark' ? 'text-[#9da8b9]' : 'text-gray-600'}`}>
+              <span className="font-semibold text-blue-500">{totalHours.toFixed(2)}h</span> total
+            </p>
+            <p className={`text-sm ${theme === 'dark' ? 'text-[#9da8b9]' : 'text-gray-600'}`}>
+              <span className="font-semibold text-green-500">{stats.averageHoursPerDay.toFixed(1)}h</span> avg/day
+            </p>
+            <p className={`text-sm ${theme === 'dark' ? 'text-[#9da8b9]' : 'text-gray-600'}`}>
+              <span className="font-semibold text-purple-500">{stats.totalLogs}</span> entries
+            </p>
+          </div>
         </div>
         <button
           onClick={() => {
@@ -133,6 +166,22 @@ const WorkLogList = () => {
           Log Work
         </button>
       </div>
+
+      {/* Stats Cards */}
+      {Object.keys(stats.categoryBreakdown).length > 0 && (
+        <div className={`grid grid-cols-4 gap-3 p-4 rounded-lg mb-4 ${theme === 'dark' ? 'bg-[#282f39]' : 'bg-gray-50'}`}>
+          {Object.entries(stats.categoryBreakdown).map(([category, hours]) => (
+            <div key={category} className="text-center">
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(category)}`}>
+                {categories[category]?.label}
+              </div>
+              <p className={`text-lg font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                {hours.toFixed(1)}h
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Date Range Selector */}
       <div className="flex gap-2 mb-4">

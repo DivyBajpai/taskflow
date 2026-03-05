@@ -5,7 +5,6 @@ import { SidebarProvider } from './context/SidebarContext';
 import { WorkspaceProvider } from './context/WorkspaceContext';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import useNotifications from './hooks/useNotifications';
-import useActivityTracker from './hooks/useActivityTracker';
 import Login from './pages/Login';
 import Register from './pages/RegisterDisabled';
 import CommunityRegister from './pages/CommunityRegister';
@@ -35,9 +34,6 @@ import EmailCenter from './pages/EmailCenter';
 function AppContent() {
   // Initialize notifications
   useNotifications();
-  
-  // Initialize activity tracking
-  useActivityTracker();
 
   return (
     <Routes>
