@@ -1054,7 +1054,7 @@ const predefinedTemplates = [
     subject: 'Thank You for Applying',
     category: 'hiring',
     isPredefined: true,
-    senderName: 'Code Catalyst HR',
+    senderName: 'Origin Creative Agency HR',
     variables: [
       { name: 'candidateName', description: 'Candidate\'s full name', example: 'John Doe' },
       { name: 'websiteUrl', description: 'Company website URL', example: 'https://code-catalyst.pages.dev/' },
@@ -1062,7 +1062,7 @@ const predefinedTemplates = [
       { name: 'linkedinUrl', description: 'LinkedIn page URL', example: 'https://www.linkedin.com/company/code-catalyst-s/' }
     ],
     htmlContent: `
-      <p>Thank you for showing interest in joining the Code Catalyst Community and for submitting your details through our Hiring Form. 🎉</p>
+      <p>Thank you for showing interest in joining the Origin Creative Agency Community and for submitting your details through our Hiring Form. 🎉</p>
       <p>We have successfully received your response and our HR/Recruitment team will carefully review your application. If your profile aligns with our current requirements, you will be shortlisted for the next stage of the selection process, which may include an interview or additional assessments.</p>
       
       <h2>🔹 What Happens Next?</h2>
@@ -1073,16 +1073,16 @@ const predefinedTemplates = [
         In the meantime, feel free to stay connected with us through our website, Discord community, and LinkedIn.
       </div>
 
-      <p>We truly appreciate the time and effort you've taken to apply, and we look forward to the possibility of working together to grow and innovate as part of Code Catalyst.</p>
+      <p>We truly appreciate the time and effort you've taken to apply, and we look forward to the possibility of working together to grow and innovate as part of Origin Creative Agency.</p>
     `
   },
   {
     name: 'Interview Scheduled (Online)',
     code: 'INTERVIEW_ONLINE',
-    subject: 'Interview Schedule – Code Catalyst Recruitment',
+    subject: 'Interview Schedule – Origin Creative Agency Recruitment',
     category: 'interview',
     isPredefined: true,
-    senderName: 'Code Catalyst Recruitment',
+    senderName: 'Origin Creative Agency Recruitment',
     variables: [
       { name: 'candidateName', description: 'Candidate\'s full name', example: 'John Doe' },
       { name: 'date', description: 'Interview date', example: '29/10/2025' },
@@ -1093,7 +1093,7 @@ const predefinedTemplates = [
       { name: 'designation', description: 'HR designation', example: 'HR Lead' }
     ],
     htmlContent: `
-      <p>We are pleased to inform you that you have been shortlisted for the Code Catalyst recruitment process. The next step will be your interview round, details of which are provided below:</p>
+      <p>We are pleased to inform you that you have been shortlisted for the Origin Creative Agency recruitment process. The next step will be your interview round, details of which are provided below:</p>
 
       <div class="details-card">
         <table class="details-table">
@@ -1136,7 +1136,7 @@ const predefinedTemplates = [
     subject: 'You are Hired, we\'re Excited to Have You on Our Team!',
     category: 'onboarding',
     isPredefined: true,
-    senderName: 'Code Catalyst Onboarding',
+    senderName: 'Origin Creative Agency Onboarding',
     variables: [
       { name: 'candidateName', description: 'Candidate\'s full name', example: 'John Doe' },
       { name: 'domainName', description: 'Assigned domain/team', example: 'Project Management' },
@@ -1147,10 +1147,10 @@ const predefinedTemplates = [
     ],
     htmlContent: `
       <h2>Congratulations! You are Hired! 🎉</h2>
-      <p>We are delighted to officially welcome you to the Code Catalyst Community. Your skills, passion, and dedication have earned you this opportunity, and we're excited to see the impact you will create as part of our growing network of innovators.</p>
+      <p>We are delighted to officially welcome you to the Origin Creative Agency Community. Your skills, passion, and dedication have earned you this opportunity, and we're excited to see the impact you will create as part of our growing network of innovators.</p>
 
       <div class="highlight">
-        We're thrilled to inform you that you've officially been selected as the <strong>{{domainName}} Team Member</strong> at Code Catalyst. Welcome aboard!
+        We're thrilled to inform you that you've officially been selected as the <strong>{{domainName}} Team Member</strong> at Origin Creative Agency. Welcome aboard!
       </div>
 
       <p>To get started, please join our official Discord server where all important communication, onboarding, and team interactions take place:</p>
@@ -1162,7 +1162,7 @@ const predefinedTemplates = [
       <p>Attached to this email, you will find your Offer Letter. Please review the document carefully and confirm your acceptance by replying to this email.</p>
 
       <h3>📌 Share Your Achievement</h3>
-      <p>We would love for you to share this milestone on LinkedIn! Don't forget to tag "Code Catalyst" in your post so we can reshare it.</p>
+      <p>We would love for you to share this milestone on LinkedIn! Don't forget to tag "Origin Creative Agency" in your post so we can reshare it.</p>
       <p>LinkedIn Page Link: <a href="{{linkedinPageUrl}}">{{linkedinPageUrl}}</a></p>
 
       <p>Once again, congratulations and welcome aboard! Let's build, learn, and grow together.</p>
@@ -1171,7 +1171,7 @@ const predefinedTemplates = [
   {
     name: 'Interview Scheduled (Offline)',
     code: 'INTERVIEW_OFFLINE',
-    subject: 'Interview Schedule – Code Catalyst Recruitment',
+    subject: 'Interview Schedule – Origin Creative Agency Recruitment',
     category: 'interview',
     isPredefined: true,
     variables: [
@@ -1202,11 +1202,11 @@ const predefinedTemplates = [
 <body>
   <div class="container">
     <div class="header">
-      <h1>Interview Schedule – Code Catalyst Recruitment</h1>
+      <h1>Interview Schedule – Origin Creative Agency Recruitment</h1>
     </div>
     <div class="content">
       <p>Hi {{candidateName}},</p>
-      <p>We are pleased to inform you that you have been shortlisted for the Code Catalyst recruitment process. The next step will be your interview round, details of which are provided below:</p>
+      <p>We are pleased to inform you that you have been shortlisted for the Origin Creative Agency recruitment process. The next step will be your interview round, details of which are provided below:</p>
 
       <div class="interview-details">
         <p><strong>Interview Mode:</strong> Offline (In-Person)</p>
@@ -1221,13 +1221,13 @@ const predefinedTemplates = [
         <li>Please arrive at least 10 minutes early.</li>
         <li>Carry your College ID Card and a copy of your resume.</li>
         <li>Dress well to maintain professionalism.</li>
-        <li>Be prepared to discuss your background, skills, and interest in contributing to the Code Catalyst Community.</li>
+        <li>Be prepared to discuss your background, skills, and interest in contributing to the Origin Creative Agency Community.</li>
       </ul>
 
       <p>Kindly reply to this email to confirm your availability or let us know if you require rescheduling.</p>
       <p>We look forward to meeting you and learning more about your aspirations.</p>
 
-      <p>Best regards,<br>{{hrName}}<br>{{designation}}<br>Code Catalyst</p>
+      <p>Best regards,<br>{{hrName}}<br>{{designation}}<br>Origin Creative Agency</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please do not reply to this email.</p>
@@ -1240,7 +1240,7 @@ const predefinedTemplates = [
   {
     name: 'Interview Rescheduled',
     code: 'INTERVIEW_RESCHEDULED',
-    subject: 'Interview Reschedule for Code Catalyst Community',
+    subject: 'Interview Reschedule for Origin Creative Agency Community',
     category: 'interview',
     isPredefined: true,
     variables: [
@@ -1275,7 +1275,7 @@ const predefinedTemplates = [
     </div>
     <div class="content">
       <p>Dear {{candidateName}},</p>
-      <p>We hope you're doing well. We noticed that you couldn't attend your scheduled interview for Code Catalyst, our college's technical community.</p>
+      <p>We hope you're doing well. We noticed that you couldn't attend your scheduled interview for Origin Creative Agency, our college's technical community.</p>
       <p>We understand that unforeseen circumstances can arise, so we're giving you another opportunity to attend the interview. Please find the new interview details below:</p>
 
       <div class="interview-details">
@@ -1295,7 +1295,7 @@ const predefinedTemplates = [
 
       <p>We truly hope you can make it this time and are looking forward to meeting you.</p>
 
-      <p>Best regards,<br>{{hrName}}<br>{{designation}}<br>Code Catalyst Team</p>
+      <p>Best regards,<br>{{hrName}}<br>{{designation}}<br>Origin Creative Agency Team</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please do not reply to this email.</p>
@@ -1308,7 +1308,7 @@ const predefinedTemplates = [
   {
     name: 'Interview Not Attended',
     code: 'INTERVIEW_NO_SHOW',
-    subject: 'Interview Update – Code Catalyst',
+    subject: 'Interview Update – Origin Creative Agency',
     category: 'interview',
     isPredefined: true,
     variables: [
@@ -1339,17 +1339,17 @@ const predefinedTemplates = [
 <body>
   <div class="container">
     <div class="header">
-      <h1>Interview Update – Code Catalyst</h1>
+      <h1>Interview Update – Origin Creative Agency</h1>
     </div>
     <div class="content">
       <p>Hi {{candidateName}},</p>
-      <p>We noticed that you were unable to attend your scheduled interview for Code Catalyst.</p>
+      <p>We noticed that you were unable to attend your scheduled interview for Origin Creative Agency.</p>
 
       <div class="highlight">
-        <p><strong>📌 Note:</strong> While we regret that we couldn't meet you this time, we truly appreciate your initial interest in joining Code Catalyst.</p>
+        <p><strong>📌 Note:</strong> While we regret that we couldn't meet you this time, we truly appreciate your initial interest in joining Origin Creative Agency.</p>
       </div>
 
-      <p>Even though the interview process couldn't proceed, we'd love to stay connected with you! 🌟 Code Catalyst is more than just a community—it's a space for innovation, learning, and collaboration.</p>
+      <p>Even though the interview process couldn't proceed, we'd love to stay connected with you! 🌟 Origin Creative Agency is more than just a community—it's a space for innovation, learning, and collaboration.</p>
 
       <p>Feel free to explore our activities, events, and projects. You're always welcome to join us through our social platforms:</p>
 
@@ -1364,7 +1364,7 @@ const predefinedTemplates = [
 
       <p>We hope to see you around, and perhaps in future opportunities! 🚀</p>
 
-      <p>Best regards,<br>HR Team<br>Code Catalyst</p>
+      <p>Best regards,<br>HR Team<br>Origin Creative Agency</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please do not reply to this email.</p>
@@ -1377,7 +1377,7 @@ const predefinedTemplates = [
   {
     name: 'Not Hired (Rejection)',
     code: 'NOT_HIRED',
-    subject: 'Application Update – Code Catalyst Recruitment',
+    subject: 'Application Update – Origin Creative Agency Recruitment',
     category: 'hiring',
     isPredefined: true,
     variables: [
@@ -1412,7 +1412,7 @@ const predefinedTemplates = [
     </div>
     <div class="content">
       <p>Hi {{candidateName}},</p>
-      <p>Thank you for attending the interview for Code Catalyst. We truly appreciate the time and effort you invested in this process.</p>
+      <p>Thank you for attending the interview for Origin Creative Agency. We truly appreciate the time and effort you invested in this process.</p>
 
       <div class="highlight">
         <p><strong>📌 Update:</strong> After careful evaluation of all candidates, we regret to inform you that we are unable to proceed with your application at this time.</p>
@@ -1420,7 +1420,7 @@ const predefinedTemplates = [
 
       <p>We want to emphasize that this decision was incredibly challenging, given the caliber of talent we encountered. While you weren't selected this time, we encourage you to keep honing your skills and exploring opportunities.</p>
 
-      <p>Code Catalyst is not just about selection—it's about growth and community. We invite you to stay connected with us and engage with our events, projects, and learning initiatives:</p>
+      <p>Origin Creative Agency is not just about selection—it's about growth and community. We invite you to stay connected with us and engage with our events, projects, and learning initiatives:</p>
 
       <div class="social-links">
         <p>
@@ -1433,7 +1433,7 @@ const predefinedTemplates = [
 
       <p>We genuinely hope to see you succeed in your endeavors, and perhaps our paths will cross again in the future. Keep pushing forward! 💪</p>
 
-      <p>Best regards,<br>HR Team<br>Code Catalyst</p>
+      <p>Best regards,<br>HR Team<br>Origin Creative Agency</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please do not reply to this email.</p>
@@ -1446,7 +1446,7 @@ const predefinedTemplates = [
   {
     name: 'Server Join Reminder',
     code: 'SERVER_JOIN_REMINDER',
-    subject: 'Reminder: Join the Code Catalyst Core Server',
+    subject: 'Reminder: Join the Origin Creative Agency Core Server',
     category: 'engagement',
     isPredefined: true,
     variables: [
@@ -1473,11 +1473,11 @@ const predefinedTemplates = [
 <body>
   <div class="container">
     <div class="header">
-      <h1>Join the Code Catalyst Core Server</h1>
+      <h1>Join the Origin Creative Agency Core Server</h1>
     </div>
     <div class="content">
       <p>Hi {{memberName}},</p>
-      <p>We noticed that you haven't joined the Code Catalyst Core Server on Discord yet. 🎯</p>
+      <p>We noticed that you haven't joined the Origin Creative Agency Core Server on Discord yet. 🎯</p>
       <p>This server is the central hub for all team activities, updates, announcements, and collaboration. It's essential that you join as soon as possible to stay connected with your team and access important resources.</p>
 
       <p style="text-align: center;">
@@ -1490,7 +1490,7 @@ const predefinedTemplates = [
 
       <p>If you face any issues joining, feel free to reply to this email, and we'll assist you.</p>
 
-      <p>Best regards,<br>{{senderName}}<br>Code Catalyst Team</p>
+      <p>Best regards,<br>{{senderName}}<br>Origin Creative Agency Team</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please do not reply to this email.</p>
@@ -1503,7 +1503,7 @@ const predefinedTemplates = [
   {
     name: 'Team Choice (Interviewed)',
     code: 'TEAM_CHOICE_INTERVIEWED',
-    subject: 'Next Step – Choose Your Team at Code Catalyst',
+    subject: 'Next Step – Choose Your Team at Origin Creative Agency',
     category: 'onboarding',
     isPredefined: true,
     variables: [
@@ -1529,11 +1529,11 @@ const predefinedTemplates = [
 <body>
   <div class="container">
     <div class="header">
-      <h1>Choose Your Team – Code Catalyst</h1>
+      <h1>Choose Your Team – Origin Creative Agency</h1>
     </div>
     <div class="content">
       <p>Hi {{candidateName}},</p>
-      <p>Thank you for attending the interview for Code Catalyst! 🎉 We're excited to move forward with you.</p>
+      <p>Thank you for attending the interview for Origin Creative Agency! 🎉 We're excited to move forward with you.</p>
       <p>As the next step, we'd like you to choose the team/domain you're most interested in joining. Your preference will help us assign you to the right team where you can contribute and grow.</p>
 
       <p><strong>Available Teams/Domains:</strong></p>
@@ -1556,7 +1556,7 @@ const predefinedTemplates = [
 
       <p>Looking forward to having you on board! 🚀</p>
 
-      <p>Best regards,<br>HR Team<br>Code Catalyst</p>
+      <p>Best regards,<br>HR Team<br>Origin Creative Agency</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please do not reply to this email.</p>
@@ -1569,7 +1569,7 @@ const predefinedTemplates = [
   {
     name: 'Team Choice (Not Interviewed)',
     code: 'TEAM_CHOICE_NOT_INTERVIEWED',
-    subject: 'Opportunity to Join Code Catalyst Teams',
+    subject: 'Opportunity to Join Origin Creative Agency Teams',
     category: 'engagement',
     isPredefined: true,
     variables: [
@@ -1582,7 +1582,7 @@ const predefinedTemplates = [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join Code Catalyst Teams</title>
+  <title>Join Origin Creative Agency Teams</title>
   <style>
     body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
     .container { max-width: 600px; margin: 0 auto; padding: 20px; }
@@ -1595,11 +1595,11 @@ const predefinedTemplates = [
 <body>
   <div class="container">
     <div class="header">
-      <h1>Join Code Catalyst Teams</h1>
+      <h1>Join Origin Creative Agency Teams</h1>
     </div>
     <div class="content">
       <p>Hi {{candidateName}},</p>
-      <p>We noticed you couldn't attend the scheduled interview for Code Catalyst. However, we don't want you to miss out on the opportunity to be part of our amazing community! ✨</p>
+      <p>We noticed you couldn't attend the scheduled interview for Origin Creative Agency. However, we don't want you to miss out on the opportunity to be part of our amazing community! ✨</p>
       <p>We're offering you a chance to join one of our specialized teams directly. You can choose the team/domain that aligns with your interests and skills.</p>
 
       <p><strong>Available Teams:</strong></p>
@@ -1619,7 +1619,7 @@ const predefinedTemplates = [
 
       <p>Don't miss this opportunity to be a part of something exciting and collaborative! 🚀</p>
 
-      <p>Best regards,<br>Code Catalyst Team</p>
+      <p>Best regards,<br>Origin Creative Agency Team</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please do not reply to this email.</p>
@@ -1661,16 +1661,16 @@ const predefinedTemplates = [
     </div>
     <div class="content">
       <p>Hi {{memberName}},</p>
-      <p>Thank you for informing us about your decision to resign from the Code Catalyst Community.</p>
+      <p>Thank you for informing us about your decision to resign from the Origin Creative Agency Community.</p>
       <p>We acknowledge your resignation and respect your choice. We truly appreciate the time, effort, and contributions you made during your tenure with us. Your work has been valuable, and you'll be missed by the team.</p>
 
       <p>We understand that priorities and circumstances change, and we wish you nothing but the best in your future endeavors. 🌟</p>
 
-      <p>If you ever wish to reconnect or rejoin Code Catalyst in the future, our doors are always open for you.</p>
+      <p>If you ever wish to reconnect or rejoin Origin Creative Agency in the future, our doors are always open for you.</p>
 
-      <p>You will always remain a valued part of the Code Catalyst family. Thank you once again, and we hope our paths cross again someday!</p>
+      <p>You will always remain a valued part of the Origin Creative Agency family. Thank you once again, and we hope our paths cross again someday!</p>
 
-      <p>Best wishes,<br>{{managerName}}<br>Code Catalyst Team</p>
+      <p>Best wishes,<br>{{managerName}}<br>Origin Creative Agency Team</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please do not reply to this email.</p>
@@ -1690,7 +1690,7 @@ const predefinedTemplates = [
       { name: 'memberName', description: 'Member\'s full name', example: 'John Doe' },
       { name: 'teamName', description: 'Team name', example: 'Development Team' },
       { name: 'inactivePeriod', description: 'Period of inactivity', example: '4 weeks' },
-      { name: 'projectName', description: 'Project/community name', example: 'Code Catalyst' },
+      { name: 'projectName', description: 'Project/community name', example: 'Origin Creative Agency' },
       { name: 'managerName', description: 'Manager name', example: 'Team Lead' }
     ],
     htmlContent: `
@@ -1745,7 +1745,7 @@ const predefinedTemplates = [
   {
     name: 'Inactivity Warning',
     code: 'INACTIVITY_WARNING',
-    subject: 'Reminder: Your Activity on Code Catalyst',
+    subject: 'Reminder: Your Activity on Origin Creative Agency',
     category: 'engagement',
     isPredefined: true,
     variables: [
@@ -1777,7 +1777,7 @@ const predefinedTemplates = [
     </div>
     <div class="content">
       <p>Hi {{memberName}},</p>
-      <p>We hope you're doing well! This is a gentle reminder regarding your activity status with the {{teamName}} at Code Catalyst.</p>
+      <p>We hope you're doing well! This is a gentle reminder regarding your activity status with the {{teamName}} at Origin Creative Agency.</p>
 
       <div class="highlight">
         <p><strong>⚠️ Notice:</strong> We've observed that you haven't been active for approximately {{inactivePeriod}}. We haven't seen your contributions or responses to team communications during this time.</p>
@@ -1796,7 +1796,7 @@ const predefinedTemplates = [
 
       <p>We genuinely hope to hear from you soon and continue working together! 🚀</p>
 
-      <p>Best regards,<br>{{teamName}} Lead<br>Code Catalyst</p>
+      <p>Best regards,<br>{{teamName}} Lead<br>Origin Creative Agency</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please reply to confirm your status.</p>
@@ -1809,7 +1809,7 @@ const predefinedTemplates = [
   {
     name: 'Rejoining Invitation',
     code: 'REJOIN_INVITE',
-    subject: 'Invitation to Rejoin the Team – Code Catalyst',
+    subject: 'Invitation to Rejoin the Team – Origin Creative Agency',
     category: 'engagement',
     isPredefined: true,
     variables: [
@@ -1841,7 +1841,7 @@ const predefinedTemplates = [
     <div class="content">
       <p>Dear {{memberName}},</p>
       <p>We hope this email finds you well!</p>
-      <p>It's been a while since you were part of the {{teamName}} at Code Catalyst, and we genuinely miss having you around. Your contributions and presence were always valued, and we believe you have a lot to offer to the team.</p>
+      <p>It's been a while since you were part of the {{teamName}} at Origin Creative Agency, and we genuinely miss having you around. Your contributions and presence were always valued, and we believe you have a lot to offer to the team.</p>
 
       <p>We'd like to extend an invitation for you to rejoin the {{teamName}}! 🎉</p>
 
@@ -1857,7 +1857,7 @@ const predefinedTemplates = [
 
       <p>We truly hope to have you back on the team! Let's create, learn, and grow together once again. 🚀</p>
 
-      <p>Warm regards,<br>{{managerName}}<br>{{managerRole}}<br>{{teamName}}<br>Code Catalyst</p>
+      <p>Warm regards,<br>{{managerName}}<br>{{managerRole}}<br>{{teamName}}<br>Origin Creative Agency</p>
     </div>
     <div class="footer">
       <p>This is an automated message. Please reply if interested.</p>
@@ -1904,11 +1904,11 @@ const predefinedTemplates = [
     </div>
     <div class="content">
       <p>Hi {{name}},</p>
-      <p>Thank you for contacting Code Catalyst! 🎉 We've successfully received your message and appreciate you taking the time to reach out to us.</p>
+      <p>Thank you for contacting Origin Creative Agency! 🎉 We've successfully received your message and appreciate you taking the time to reach out to us.</p>
 
       <p>Our team will review your query and get back to you within {{timeline}}. We strive to respond to every inquiry promptly and provide the best assistance possible.</p>
 
-      <p>In the meantime, feel free to explore more about Code Catalyst:</p>
+      <p>In the meantime, feel free to explore more about Origin Creative Agency:</p>
 
       <div class="social-links">
         <p>
@@ -1922,7 +1922,7 @@ const predefinedTemplates = [
 
       <p>Thank you once again for connecting with us. We look forward to assisting you! 🚀</p>
 
-      <p>Best regards,<br>Code Catalyst Team</p>
+      <p>Best regards,<br>Origin Creative Agency Team</p>
     </div>
     <div class="footer">
       <p>This is an automated acknowledgement. We'll respond to your query soon.</p>
